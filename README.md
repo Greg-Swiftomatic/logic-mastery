@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Logic Mastery
+
+An interactive course for learning formal logic — from propositional calculus to predicate logic, with real-world applications.
+
+## Why This Exists
+
+I read [a post by Ethan Mollick](https://twitter.com/emollick) this morning about an instant interactive explainer from Claude for a frequent debate about correlation & causation:
+
+> "Create an interactive tool that explains the ways two variables can be correlated (causation, random chance, reverse causation, etc)"
+
+That got me thinking: *how easy is it now to build something substantial without much effort, while doing my daily work?*
+
+This entire website was built in a single day alongside other tasks — a proof of concept for how AI-assisted development has changed what's possible. From idea to deployed production app, with 5 complete modules, 64+ exercises, and a distinctive editorial design.
+
+## What's Inside
+
+**5 Complete Modules:**
+
+1. **Propositional Logic** — AND, OR, NOT, IF-THEN, IFF with interactive truth tables
+2. **Translation** — Converting English to formal logic and back
+3. **Validity & Proofs** — Modus Ponens, Modus Tollens, and proof strategies
+4. **Predicate Logic** — Quantifiers (∀, ∃) with SQL parallels for developers
+5. **Applications** — Logical fallacies and Knights & Knaves puzzles
+
+**Features:**
+- Interactive truth tables with instant feedback
+- 64+ exercises across all difficulty levels
+- Progress tracking (localStorage)
+- Editorial "Academic Brutalism" design aesthetic
+
+## Tech Stack
+
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- No backend required — fully static
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Push to GitHub, connect to [Vercel](https://vercel.com), done.
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
