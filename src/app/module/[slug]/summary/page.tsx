@@ -163,7 +163,7 @@ function PlaceholderSummary({ nextModule }: { nextModule?: typeof MODULES[0] }) 
 
 function PropositionalSummary({ completion, accuracy, nextModule }: SummaryProps) {
   return (
-    <article className="stagger-reveal">
+    <article>
       <ProgressHeader completion={completion} accuracy={accuracy} title="Propositional Logic — Quick Reference" />
 
       <h2 className="heading-2">Logical Connectives</h2>
@@ -200,7 +200,7 @@ function PropositionalSummary({ completion, accuracy, nextModule }: SummaryProps
 
 function TranslationSummary({ completion, accuracy, nextModule }: SummaryProps) {
   return (
-    <article className="stagger-reveal">
+    <article>
       <ProgressHeader completion={completion} accuracy={accuracy} title="Translation — Quick Reference" />
 
       <h2 className="heading-2">Translation Patterns</h2>
@@ -242,7 +242,7 @@ function TranslationSummary({ completion, accuracy, nextModule }: SummaryProps) 
 
 function ValiditySummary({ completion, accuracy, nextModule }: SummaryProps) {
   return (
-    <article className="stagger-reveal">
+    <article>
       <ProgressHeader completion={completion} accuracy={accuracy} title="Validity & Proofs — Quick Reference" />
 
       <h2 className="heading-2">Inference Rules</h2>
@@ -288,7 +288,7 @@ function ValiditySummary({ completion, accuracy, nextModule }: SummaryProps) {
 
 function PredicateSummary({ completion, accuracy, nextModule }: SummaryProps) {
   return (
-    <article className="stagger-reveal">
+    <article>
       <ProgressHeader completion={completion} accuracy={accuracy} title="Predicate Logic — Quick Reference" />
 
       <h2 className="heading-2">Quantifiers</h2>
@@ -342,7 +342,7 @@ function PredicateSummary({ completion, accuracy, nextModule }: SummaryProps) {
 
 function ApplicationsSummary({ completion, accuracy }: Omit<SummaryProps, 'nextModule'>) {
   return (
-    <article className="stagger-reveal">
+    <article>
       <ProgressHeader completion={completion} accuracy={accuracy} title="Applications — Quick Reference" />
 
       <h2 className="heading-2">Formal Fallacies</h2>
