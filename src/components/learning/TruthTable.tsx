@@ -15,7 +15,8 @@ const evaluate = (
   expression: string,
   values: Record<string, boolean>
 ): boolean => {
-  let expr = expression;
+  // Remove all spaces to normalize the expression
+  let expr = expression.replace(/\s+/g, "");
   for (const [variable, value] of Object.entries(values)) {
     expr = expr.replace(new RegExp(variable, "g"), value ? "T" : "F");
   }
