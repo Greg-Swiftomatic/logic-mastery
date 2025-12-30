@@ -116,32 +116,30 @@ function KeyTakeaways({ items }: { items: string[] }) {
 
 function NextModuleLink({ nextModule }: { nextModule: typeof MODULES[0] }) {
   return (
-    <Link href={`/module/${nextModule.slug}/lesson`}>
-      <motion.div
-        whileHover={{ x: 4 }}
-        className="mt-10 p-6 bg-paper border-2 border-ink cursor-pointer"
-        style={{ boxShadow: '4px 4px 0 var(--color-ink)' }}
-      >
-        <div className="flex items-center gap-6">
-          <span className="text-4xl font-mono text-ink/20">{nextModule.icon}</span>
-          <div className="flex-1">
-            <p className="caption text-ink-faded mb-1">Up Next</p>
-            <p className="font-display text-xl text-ink">Module {nextModule.id}: {nextModule.title}</p>
-            <p className="text-ink-medium text-sm">{nextModule.description}</p>
-          </div>
-          <span className="text-2xl text-vermillion">→</span>
+    <a 
+      href={`/module/${nextModule.slug}/lesson`}
+      className="block mt-10 p-6 bg-paper border-2 border-ink cursor-pointer hover:translate-x-1 transition-transform"
+      style={{ boxShadow: '4px 4px 0 var(--color-ink)' }}
+    >
+      <div className="flex items-center gap-6">
+        <span className="text-4xl font-mono text-ink/20">{nextModule.icon}</span>
+        <div className="flex-1">
+          <p className="caption text-ink-faded mb-1">Up Next</p>
+          <p className="font-display text-xl text-ink">Module {nextModule.id}: {nextModule.title}</p>
+          <p className="text-ink-medium text-sm">{nextModule.description}</p>
         </div>
-      </motion.div>
-    </Link>
+        <span className="text-2xl text-vermillion">→</span>
+      </div>
+    </a>
   );
 }
 
 function SummaryNav() {
   return (
     <div className="mt-16 pt-8 border-t border-ink/10 flex justify-between">
-      <Link href="/">
+      <a href="/">
         <button className="btn-secondary px-6 py-3">← Return Home</button>
-      </Link>
+      </a>
     </div>
   );
 }
