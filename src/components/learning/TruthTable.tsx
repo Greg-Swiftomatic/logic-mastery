@@ -24,9 +24,9 @@ const evaluate = (
   while (expr.includes("¬F")) expr = expr.replace("¬F", "T");
 
   while (expr.includes("T∧T")) expr = expr.replace("T∧T", "T");
-  while (expr.includes("T∧F") || expr.includes("F∧T") || expr.includes("F∧F")) {
-    expr = expr.replace(/[TF]∧[TF]/, "F");
-  }
+  while (expr.includes("T∧F")) expr = expr.replace("T∧F", "F");
+  while (expr.includes("F∧T")) expr = expr.replace("F∧T", "F");
+  while (expr.includes("F∧F")) expr = expr.replace("F∧F", "F");
 
   while (expr.includes("F∨F")) expr = expr.replace("F∨F", "F");
   while (expr.includes("T∨T") || expr.includes("T∨F") || expr.includes("F∨T")) {
