@@ -147,7 +147,7 @@ export function useProgress() {
 
   const getModuleCompletion = useCallback(
     (moduleSlug: string): number => {
-      return calculateModuleCompletion(getModuleProgress(progress, moduleSlug));
+      return calculateModuleCompletion(getModuleProgress(progress, moduleSlug), moduleSlug);
     },
     [progress]
   );

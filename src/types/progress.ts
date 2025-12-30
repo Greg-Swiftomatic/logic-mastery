@@ -1,4 +1,4 @@
-import { Difficulty } from "./module";
+import { Difficulty, MODULES } from "./module";
 
 export interface ExerciseProgress {
   completed: boolean;
@@ -49,24 +49,30 @@ export function getModuleProgress(
   );
 }
 
-export function calculateModuleCompletion(moduleProgress: ModuleProgress): number {
+export function calculateModuleCompletion(
+  moduleProgress: ModuleProgress,
+  moduleSlug?: string
+): number {
   const sections = [
     moduleProgress.lessonCompleted,
     moduleProgress.examplesViewed,
     moduleProgress.summaryViewed,
   ];
   
-  const exerciseIds = Object.keys(moduleProgress.exercises);
-  const completedExercises = exerciseIds.filter(
-    (id) => moduleProgress.exercises[id].completed
+  // Get total exercises from module definition
+  const module = moduleSlug ? MODULES.find((m) => m.slug === moduleSlug) : null;
+  const totalExercises = module?.exerciseCount || 0;
+  
+  const completedExercises = Object.values(moduleProgress.exercises).filter(
+    (e) => e.completed
   ).length;
   
   const sectionWeight = 0.1; // 10% each for lesson, examples, summary
   const exerciseWeight = 0.7; // 70% for exercises
   
   const sectionScore = sections.filter(Boolean).length * sectionWeight;
-  const exerciseScore = exerciseIds.length > 0 
-    ? (completedExercises / exerciseIds.length) * exerciseWeight 
+  const exerciseScore = totalExercises > 0 
+    ? (completedExercises / totalExercises) * exerciseWeight 
     : 0;
   
   return Math.round((sectionScore + exerciseScore) * 100);
