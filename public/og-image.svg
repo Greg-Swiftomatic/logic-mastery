@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#FAF8F3"/>
+  
+  <!-- Border frame -->
+  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="#1A1814" stroke-width="3"/>
+  <rect x="50" y="50" width="1100" height="530" fill="none" stroke="#1A1814" stroke-width="1"/>
+  
+  <!-- Large decorative symbol -->
+  <text x="950" y="450" font-family="Georgia, serif" font-size="400" fill="#1A1814" opacity="0.05">∴</text>
+  
+  <!-- Logic symbols decoration -->
+  <text x="100" y="150" font-family="Georgia, serif" font-size="48" fill="#C84C3B" opacity="0.3">∧</text>
+  <text x="180" y="120" font-family="Georgia, serif" font-size="36" fill="#1E4158" opacity="0.3">∨</text>
+  <text x="140" y="200" font-family="Georgia, serif" font-size="42" fill="#C5A572" opacity="0.4">→</text>
+  
+  <!-- Main title -->
+  <text x="100" y="300" font-family="Georgia, serif" font-size="72" fill="#1A1814" font-style="italic">Logic Mastery</text>
+  
+  <!-- Subtitle -->
+  <text x="100" y="370" font-family="Georgia, serif" font-size="32" fill="#5C5A56">The Art of Clear Thinking</text>
+  
+  <!-- Decorative line -->
+  <line x1="100" y1="400" x2="500" y2="400" stroke="#C84C3B" stroke-width="3"/>
+  
+  <!-- Description -->
+  <text x="100" y="460" font-family="Arial, sans-serif" font-size="24" fill="#5C5A56">An interactive course in formal logic</text>
+  <text x="100" y="500" font-family="Arial, sans-serif" font-size="24" fill="#5C5A56">From propositional calculus to real-world applications</text>
+  
+  <!-- Corner accent -->
+  <rect x="1050" y="500" width="60" height="60" fill="#C5A572"/>
+  <text x="1080" y="545" font-family="Georgia, serif" font-size="36" fill="#1A1814" text-anchor="middle">∴</text>
+</svg>

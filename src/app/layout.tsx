@@ -28,6 +28,23 @@ export const metadata: Metadata = {
     "programming",
     "learn logic",
   ],
+  icons: {
+    icon: "/favicon.svg",
+  },
+  openGraph: {
+    title: "Logic Mastery — The Art of Clear Thinking",
+    description:
+      "Master formal logic through real-world examples. An interactive course from propositional calculus to real-world applications.",
+    siteName: "Logic Mastery",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Logic Mastery — The Art of Clear Thinking",
+    description:
+      "Master formal logic through real-world examples. An interactive course from propositional calculus to real-world applications.",
+  },
 };
 
 export default function RootLayout({
