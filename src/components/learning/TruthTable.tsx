@@ -2,7 +2,6 @@
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
 
 interface TruthTableProps {
   variables: string[];
@@ -16,36 +15,29 @@ const evaluate = (
   expression: string,
   values: Record<string, boolean>
 ): boolean => {
-  // Replace variables with their boolean values
   let expr = expression;
   for (const [variable, value] of Object.entries(values)) {
     expr = expr.replace(new RegExp(variable, "g"), value ? "T" : "F");
   }
 
-  // Evaluate the expression
-  // Handle NOT (¬)
   while (expr.includes("¬T")) expr = expr.replace("¬T", "F");
   while (expr.includes("¬F")) expr = expr.replace("¬F", "T");
 
-  // Handle AND (∧)
   while (expr.includes("T∧T")) expr = expr.replace("T∧T", "T");
   while (expr.includes("T∧F") || expr.includes("F∧T") || expr.includes("F∧F")) {
     expr = expr.replace(/[TF]∧[TF]/, "F");
   }
 
-  // Handle OR (∨)
   while (expr.includes("F∨F")) expr = expr.replace("F∨F", "F");
   while (expr.includes("T∨T") || expr.includes("T∨F") || expr.includes("F∨T")) {
     expr = expr.replace(/[TF]∨[TF]/, "T");
   }
 
-  // Handle IMPLIES (→)
   while (expr.includes("T→F")) expr = expr.replace("T→F", "F");
   while (expr.includes("T→T") || expr.includes("F→T") || expr.includes("F→F")) {
     expr = expr.replace(/[TF]→[TF]/, "T");
   }
 
-  // Handle IFF (↔)
   while (expr.includes("T↔T") || expr.includes("F↔F")) {
     expr = expr.replace(/[TF]↔[TF]/, "T");
   }
@@ -53,7 +45,6 @@ const evaluate = (
     expr = expr.replace(/[TF]↔[TF]/, "F");
   }
 
-  // Handle parentheses recursively
   const parenMatch = expr.match(/\(([TF])\)/);
   if (parenMatch) {
     return evaluate(expr.replace(parenMatch[0], parenMatch[1]), {});
@@ -62,7 +53,6 @@ const evaluate = (
   return expr === "T";
 };
 
-// Generate all combinations of truth values
 const generateCombinations = (variables: string[]): Record<string, boolean>[] => {
   const n = variables.length;
   const combinations: Record<string, boolean>[] = [];
@@ -95,19 +85,15 @@ export function TruthTable({
     [combinations, expression]
   );
 
-  const handleCellClick = (rowIndex: number) => {
+  const handleToggle = (rowIndex: number, value: boolean) => {
     if (!editable || revealed) return;
-
     setUserAnswers((prev) => ({
       ...prev,
-      [rowIndex]:
-        prev[rowIndex] === null ? true : prev[rowIndex] === true ? false : null,
+      [rowIndex]: prev[rowIndex] === value ? null : value,
     }));
   };
 
-  const checkAnswers = () => {
-    setRevealed(true);
-  };
+  const checkAnswers = () => setRevealed(true);
 
   const reset = () => {
     setUserAnswers(Object.fromEntries(combinations.map((_, i) => [i, null])));
@@ -120,27 +106,53 @@ export function TruthTable({
     : null;
 
   return (
-    <div className="my-6">
-      <div className="bg-warm-white border border-border rounded-lg overflow-hidden">
-        {/* Table header */}
-        <div className="bg-parchment px-4 py-2 border-b border-border">
-          <span className="font-mono text-sm text-charcoal">{expression}</span>
-        </div>
+    <div className="my-10">
+      {/* Expression header - editorial style */}
+      <div className="flex items-center gap-4 mb-4">
+        <span className="caption">Truth Table</span>
+        <span className="flex-1 h-px bg-ink/10"></span>
+        <span className="font-mono text-lg text-vermillion font-medium">{expression}</span>
+      </div>
 
-        {/* Table */}
+      {/* Main table container - mechanical/instrument feel */}
+      <div 
+        className="relative bg-paper border-2 border-ink"
+        style={{
+          boxShadow: `
+            inset 0 1px 0 rgba(255,255,255,0.5),
+            0 4px 0 var(--color-ink-medium),
+            0 6px 12px rgba(26,24,20,0.15)
+          `
+        }}
+      >
+        {/* Corner rivets */}
+        <div className="absolute top-2 left-2 w-2 h-2 rounded-full bg-ink/20 shadow-inner"></div>
+        <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-ink/20 shadow-inner"></div>
+        <div className="absolute bottom-2 left-2 w-2 h-2 rounded-full bg-ink/20 shadow-inner"></div>
+        <div className="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-ink/20 shadow-inner"></div>
+
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full border-collapse">
             <thead>
-              <tr className="border-b border-border">
-                {variables.map((v) => (
+              <tr>
+                {variables.map((v, i) => (
                   <th
                     key={v}
-                    className="px-4 py-3 text-center font-mono font-semibold text-charcoal bg-parchment/50"
+                    className="px-6 py-4 text-center font-mono text-sm font-semibold text-paper bg-ink tracking-wider"
+                    style={{
+                      borderRight: i === variables.length - 1 ? '2px solid var(--color-ink)' : '1px solid rgba(255,255,255,0.1)'
+                    }}
                   >
                     {v}
                   </th>
                 ))}
-                <th className="px-4 py-3 text-center font-mono font-semibold text-terracotta bg-parchment/50 border-l border-border">
+                <th 
+                  className="px-6 py-4 text-center font-mono text-sm font-semibold tracking-wider"
+                  style={{
+                    background: 'var(--color-gold)',
+                    color: 'var(--color-ink)'
+                  }}
+                >
                   {expression}
                 </th>
               </tr>
@@ -155,42 +167,48 @@ export function TruthTable({
                 return (
                   <motion.tr
                     key={rowIndex}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: rowIndex * 0.05 }}
-                    className={cn(
-                      "border-b border-border last:border-b-0",
-                      isCorrect && "bg-sage-light",
-                      isIncorrect && "bg-dusty-rose-light"
-                    )}
+                    className={`
+                      border-b border-ink/10 transition-colors duration-200
+                      ${isCorrect ? 'bg-correct/10' : ''}
+                      ${isIncorrect ? 'bg-incorrect/10' : ''}
+                      ${!revealed ? 'hover:bg-paper-aged' : ''}
+                    `}
                   >
-                    {variables.map((v) => (
+                    {variables.map((v, i) => (
                       <td
                         key={v}
-                        className="px-4 py-3 text-center font-mono text-slate"
+                        className="px-6 py-4 text-center font-mono"
+                        style={{
+                          borderRight: i === variables.length - 1 ? '2px solid var(--color-ink)' : '1px solid var(--color-ink-faded)'
+                        }}
                       >
-                        <TruthBadge value={combo[v]} />
+                        <TruthIndicator value={combo[v]} />
                       </td>
                     ))}
-                    <td className="px-4 py-3 text-center border-l border-border">
+                    <td className="px-6 py-4 text-center" style={{ background: 'var(--color-gold-wash)' }}>
                       {editable && !revealed ? (
-                        <button
-                          onClick={() => handleCellClick(rowIndex)}
-                          className={cn(
-                            "w-10 h-10 rounded-md font-mono font-bold transition-all",
-                            userAnswer === null
-                              ? "bg-parchment text-muted hover:bg-border"
-                              : userAnswer
-                              ? "bg-sage text-warm-white"
-                              : "bg-dusty-rose text-warm-white"
-                          )}
-                        >
-                          {userAnswer === null ? "?" : userAnswer ? "T" : "F"}
-                        </button>
+                        <div className="flex justify-center gap-2">
+                          <TruthSwitch
+                            value={true}
+                            selected={userAnswer === true}
+                            onClick={() => handleToggle(rowIndex, true)}
+                          />
+                          <TruthSwitch
+                            value={false}
+                            selected={userAnswer === false}
+                            onClick={() => handleToggle(rowIndex, false)}
+                          />
+                        </div>
                       ) : (
-                        <TruthBadge
-                          value={revealed ? correctAnswer : null}
-                          highlight
+                        <TruthIndicator 
+                          value={revealed ? correctAnswer : null} 
+                          large 
+                          showResult={revealed}
+                          isCorrect={isCorrect}
+                          isIncorrect={isIncorrect}
                         />
                       )}
                     </td>
@@ -201,46 +219,54 @@ export function TruthTable({
           </table>
         </div>
 
-        {/* Controls */}
+        {/* Control panel */}
         {editable && (
-          <div className="px-4 py-3 bg-parchment/50 border-t border-border flex items-center justify-between">
-            <div className="text-sm text-slate">
+          <div 
+            className="flex items-center justify-between px-6 py-4 border-t-2 border-ink"
+            style={{ background: 'var(--color-paper-dark)' }}
+          >
+            <div className="text-sm">
               {revealed ? (
-                <span>
-                  Score:{" "}
-                  <span
-                    className={cn(
-                      "font-semibold",
-                      score === combinations.length ? "text-sage" : "text-terracotta"
-                    )}
-                  >
+                <span className="font-mono">
+                  Result:{" "}
+                  <span className={score === combinations.length ? "text-correct font-semibold" : "text-incorrect font-semibold"}>
                     {score}/{combinations.length}
                   </span>
+                  {score === combinations.length && (
+                    <motion.span 
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="ml-2 text-correct"
+                    >
+                      ✓ Perfect
+                    </motion.span>
+                  )}
                 </span>
               ) : (
-                <span>Click cells to toggle T/F</span>
+                <span className="text-ink-light">Select T or F for each row</span>
               )}
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               {revealed ? (
                 <button
                   onClick={reset}
-                  className="px-3 py-1.5 text-sm font-medium text-slate hover:text-charcoal transition-colors"
+                  className="btn-secondary text-sm"
                 >
-                  Try Again
+                  Reset
                 </button>
               ) : (
                 <button
                   onClick={checkAnswers}
                   disabled={!allAnswered}
-                  className={cn(
-                    "px-3 py-1.5 text-sm font-medium rounded transition-colors",
-                    allAnswered
-                      ? "bg-terracotta text-warm-white hover:bg-terracotta-dark"
-                      : "bg-border text-muted cursor-not-allowed"
-                  )}
+                  className={`
+                    font-medium text-sm px-5 py-2 transition-all
+                    ${allAnswered
+                      ? "btn-primary"
+                      : "bg-paper-dark text-ink-faded border border-ink/20 cursor-not-allowed"
+                    }
+                  `}
                 >
-                  Check Answers
+                  Verify Answers
                 </button>
               )}
             </div>
@@ -251,31 +277,92 @@ export function TruthTable({
   );
 }
 
-function TruthBadge({
+// Truth value indicator - like an old instrument readout
+function TruthIndicator({
   value,
-  highlight = false,
+  large = false,
+  showResult = false,
+  isCorrect = false,
+  isIncorrect = false,
 }: {
   value: boolean | null;
-  highlight?: boolean;
+  large?: boolean;
+  showResult?: boolean;
+  isCorrect?: boolean;
+  isIncorrect?: boolean;
 }) {
   if (value === null) {
-    return <span className="text-muted">—</span>;
+    return <span className="text-ink-faded text-lg">—</span>;
   }
 
   return (
-    <span
-      className={cn(
-        "inline-block w-8 h-8 leading-8 rounded font-mono font-bold text-sm",
-        value
-          ? highlight
-            ? "bg-sage text-warm-white"
-            : "text-sage"
-          : highlight
-          ? "bg-dusty-rose text-warm-white"
-          : "text-dusty-rose"
-      )}
+    <motion.span
+      initial={showResult ? { scale: 1.5, opacity: 0 } : false}
+      animate={{ scale: 1, opacity: 1 }}
+      className={`
+        inline-flex items-center justify-center font-mono font-bold
+        ${large ? 'text-xl w-10 h-10' : 'text-base w-8 h-8'}
+        ${value 
+          ? isCorrect 
+            ? 'text-correct' 
+            : isIncorrect 
+              ? 'text-ink-light line-through' 
+              : 'text-correct'
+          : isCorrect 
+            ? 'text-incorrect' 
+            : isIncorrect 
+              ? 'text-ink-light line-through' 
+              : 'text-incorrect'
+        }
+      `}
     >
       {value ? "T" : "F"}
-    </span>
+      {showResult && isCorrect && (
+        <motion.span 
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.2 }}
+          className="ml-1 text-correct text-sm"
+        >
+          ✓
+        </motion.span>
+      )}
+    </motion.span>
+  );
+}
+
+// Mechanical toggle switch for T/F selection
+function TruthSwitch({
+  value,
+  selected,
+  onClick,
+}: {
+  value: boolean;
+  selected: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={onClick}
+      className={`
+        w-10 h-10 font-mono font-bold text-sm
+        border-2 transition-all duration-100
+        ${selected
+          ? value
+            ? "bg-correct text-paper border-correct shadow-inner"
+            : "bg-incorrect text-paper border-incorrect shadow-inner"
+          : "bg-paper text-ink-light border-ink/30 hover:border-ink/50"
+        }
+      `}
+      style={{
+        boxShadow: selected 
+          ? 'inset 0 2px 4px rgba(0,0,0,0.2)'
+          : '0 2px 0 var(--color-ink-faded), 0 3px 6px rgba(26,24,20,0.1)'
+      }}
+    >
+      {value ? "T" : "F"}
+    </motion.button>
   );
 }

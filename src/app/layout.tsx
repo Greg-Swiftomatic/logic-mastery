@@ -1,25 +1,24 @@
 import type { Metadata } from "next";
-import { Source_Sans_3, JetBrains_Mono } from "next/font/google";
+import { Crimson_Pro, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 
-const sourceSans = Source_Sans_3({
-  variable: "--font-source-sans",
+const crimsonPro = Crimson_Pro({
+  variable: "--font-crimson",
   subsets: ["latin"],
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-ibm-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Logic Mastery — Learn to Think Clearly",
+  title: "Logic Mastery — The Art of Clear Thinking",
   description:
-    "Master formal logic through real-world examples. Interactive lessons connecting logic to programming, law, science, and everyday reasoning.",
+    "Master formal logic through real-world examples. An interactive course connecting logic to programming, law, science, and everyday reasoning.",
   keywords: [
     "logic",
     "formal logic",
@@ -37,20 +36,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sourceSans.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${crimsonPro.variable} ${ibmPlexMono.variable}`}>
       <head>
-        {/* Fraunces font from Google Fonts */}
+        {/* Instrument Serif for display typography */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-cream text-charcoal antialiased">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+      <body className="min-h-screen">
+        {children}
       </body>
     </html>
   );

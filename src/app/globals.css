@@ -1,255 +1,792 @@
 @import "tailwindcss";
 
 /* ============================================
-   LOGIC MASTERY — DESIGN TOKENS
-   Academic Warmth: 1970s textbook meets modern interactivity
+   LOGIC MASTERY — EDITORIAL ACADEMIC BRUTALISM
+   "A treasured first-edition book that talks back"
+   
+   Influences: NYRB, Penguin Classics, Swiss typography,
+   1960s mathematics textbooks, letterpress printing
    ============================================ */
 
 @theme inline {
-  /* Typography */
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body: "Source Sans 3", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  /* === TYPOGRAPHY === */
+  /* Display: Instrument Serif - elegant, sharp serifs with personality */
+  --font-display: "Instrument Serif", "Playfair Display", Georgia, serif;
+  /* Body: Crimson Pro - readable, warm, bookish */
+  --font-body: "Crimson Pro", "Libre Baskerville", Georgia, serif;
+  /* Mono: IBM Plex Mono - technical, precise, mathematical */
+  --font-mono: "IBM Plex Mono", "Courier Prime", monospace;
+  /* Symbol: For logic operators - distinct weight */
+  --font-symbol: "Fira Code", "IBM Plex Mono", monospace;
 
-  /* Background Colors */
-  --color-cream: #FAF7F2;
-  --color-warm-white: #FFFDF9;
-  --color-parchment: #F0EBE1;
+  /* === INK & PAPER COLOR STORY === */
+  /* Paper tones - aged, warm, tactile */
+  --color-paper: #F7F3EB;
+  --color-paper-aged: #EDE8DC;
+  --color-paper-dark: #E5DFD0;
+  
+  /* Ink tones - deep, rich, slightly warm black */
+  --color-ink: #1A1814;
+  --color-ink-medium: #3D3830;
+  --color-ink-light: #6B6459;
+  --color-ink-faded: #9B9488;
+  
+  /* Accent: Vermillion red - marginalia, corrections, emphasis */
+  --color-vermillion: #C23C2A;
+  --color-vermillion-dark: #9E2E1F;
+  --color-vermillion-light: #E8B4AD;
+  --color-vermillion-wash: #FDF5F4;
+  
+  /* Secondary: Prussian blue - diagrams, links, technical */
+  --color-prussian: #1D3557;
+  --color-prussian-light: #457B9D;
+  --color-prussian-wash: #F0F4F7;
+  
+  /* Tertiary: Gold leaf - achievement, special moments */
+  --color-gold: #B8860B;
+  --color-gold-light: #DAA520;
+  --color-gold-wash: #FBF8F0;
+  
+  /* Success/Correct: Deep forest */
+  --color-correct: #2D5A3D;
+  --color-correct-light: #D4E6DA;
+  
+  /* Error/Incorrect: Deep burgundy */
+  --color-incorrect: #8B2635;
+  --color-incorrect-light: #F5E1E4;
 
-  /* Text Colors */
-  --color-charcoal: #2C2C2C;
-  --color-slate: #5C5C5C;
-  --color-muted: #8C8C8C;
+  /* === SPACING - Editorial grid === */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
 
-  /* Accent Colors */
-  --color-terracotta: #C75B39;
-  --color-terracotta-dark: #A84A2E;
-  --color-terracotta-light: #E8A090;
-
-  /* Feedback Colors */
-  --color-sage: #5B8C6A;
-  --color-sage-light: #E8F0EA;
-  --color-dusty-rose: #C47C7C;
-  --color-dusty-rose-light: #F5E8E8;
-  --color-gold: #C9A227;
-  --color-gold-light: #FDF6E3;
-
-  /* Domain Tag Colors */
-  --color-programming: #6B8CAE;
-  --color-programming-light: #E8EEF4;
-  --color-law: #8B7355;
-  --color-law-light: #F0EBE4;
-  --color-science: #7BA387;
-  --color-science-light: #E8F0EA;
-  --color-everyday: #9B8AA6;
-  --color-everyday-light: #F0EBF2;
-
-  /* Borders & Shadows */
-  --color-border: #E8E4DC;
-  --color-border-dark: #D4CFC4;
-
-  /* Spacing Scale (8px base) */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-  --spacing-2xl: 48px;
-  --spacing-3xl: 64px;
-
-  /* Border Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-full: 9999px;
+  /* === BORDERS & RULES === */
+  --border-hairline: 0.5px;
+  --border-thin: 1px;
+  --border-medium: 2px;
+  --border-thick: 4px;
+  --border-heavy: 8px;
+  
+  /* === SHADOWS - Layered paper depth === */
+  --shadow-emboss: inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.05);
+  --shadow-pressed: inset 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-lifted: 0 1px 2px rgba(26,24,20,0.05), 0 4px 8px rgba(26,24,20,0.05);
+  --shadow-floating: 0 4px 12px rgba(26,24,20,0.08), 0 12px 32px rgba(26,24,20,0.08);
+  --shadow-dramatic: 0 8px 24px rgba(26,24,20,0.12), 0 24px 48px rgba(26,24,20,0.12);
 }
 
 /* ============================================
-   BASE STYLES
+   BASE DOCUMENT STYLES
    ============================================ */
 
 :root {
-  --background: var(--color-cream);
-  --foreground: var(--color-charcoal);
-}
-
-@font-face {
-  font-family: "Fraunces";
-  src: url("/fonts/Fraunces-Variable.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Fraunces";
-  src: url("/fonts/Fraunces-Variable-Italic.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Source Sans 3";
-  src: url("/fonts/SourceSans3-Variable.woff2") format("woff2");
-  font-weight: 200 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/JetBrainsMono-Variable.woff2") format("woff2");
-  font-weight: 100 800;
-  font-style: normal;
-  font-display: swap;
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+  font-size: 18px;
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle paper texture overlay */
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
+}
+
+/* Paper texture - subtle grain like quality printing */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  z-index: 9999;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' seed='15' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  z-index: 10000;
+}
+
+/* Additional paper fiber texture */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.015;
+  background: 
+    radial-gradient(ellipse at 20% 30%, var(--color-ink) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, var(--color-ink) 0%, transparent 50%);
+  z-index: 10001;
 }
 
 /* ============================================
-   UTILITY CLASSES
+   TYPOGRAPHY SYSTEM
    ============================================ */
 
-.font-display {
+/* Display headlines - massive, commanding */
+.display-1 {
   font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  font-feature-settings: "kern" 1, "liga" 1, "ss01" 1;
 }
 
-.font-body {
+.display-2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Section headers */
+.heading-1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-6);
+}
+
+.heading-2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: var(--space-4);
+}
+
+.heading-3 {
   font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
 }
 
-.font-mono {
+/* Body text */
+.body-large {
+  font-size: 1.25rem;
+  line-height: 1.8;
+}
+
+.body-regular {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.body-small {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* Captions and labels */
+.caption {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-faded);
+}
+
+/* Logic symbols - special treatment */
+.logic-symbol {
+  font-family: var(--font-symbol);
+  font-weight: 500;
+  color: var(--color-vermillion);
+  padding: 0 0.1em;
+}
+
+.logic-expression {
   font-family: var(--font-mono);
-}
-
-/* Focus styles */
-*:focus-visible {
-  outline: 2px solid var(--color-terracotta);
-  outline-offset: 2px;
-}
-
-/* Selection */
-::selection {
-  background: var(--color-terracotta-light);
-  color: var(--color-charcoal);
+  font-size: 0.95em;
+  background: var(--color-paper-aged);
+  padding: 0.15em 0.4em;
+  border-radius: 2px;
+  border: var(--border-hairline) solid var(--color-ink-faded);
 }
 
 /* ============================================
-   SCROLLBAR STYLING
+   EDITORIAL LAYOUT UTILITIES
    ============================================ */
 
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Full-bleed sections */
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-parchment);
+/* Editorial margins - generous, asymmetric */
+.editorial-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-border-dark);
-  border-radius: var(--radius-full);
+.editorial-wide {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-muted);
+/* Margin notes - editorial style */
+.margin-note {
+  position: relative;
+}
+
+.margin-note::before {
+  content: attr(data-note);
+  position: absolute;
+  left: calc(100% + var(--space-8));
+  width: 180px;
+  font-size: 0.75rem;
+  color: var(--color-ink-light);
+  line-height: 1.5;
+}
+
+/* Pull quotes */
+.pull-quote {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-style: italic;
+  color: var(--color-ink-medium);
+  border-left: var(--border-thick) solid var(--color-vermillion);
+  padding-left: var(--space-6);
+  margin: var(--space-12) 0;
+  margin-left: calc(var(--space-8) * -1);
+}
+
+/* Decorative rules */
+.rule-ornament {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: var(--space-8) 0;
+}
+
+.rule-ornament::before,
+.rule-ornament::after {
+  content: "";
+  flex: 1;
+  height: var(--border-hairline);
+  background: var(--color-ink-faded);
+}
+
+.rule-ornament span {
+  font-family: var(--font-symbol);
+  color: var(--color-ink-faded);
+  font-size: 1.25rem;
+}
+
+/* Section dividers */
+.section-break {
+  height: var(--border-thin);
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-ink-faded) 20%,
+    var(--color-ink-faded) 80%,
+    transparent
+  );
+  margin: var(--space-16) 0;
 }
 
 /* ============================================
-   ANIMATION UTILITIES
+   INTERACTIVE ELEMENTS - MECHANICAL FEEL
    ============================================ */
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
+/* Buttons - like brass switches */
+.btn-primary {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-paper);
+  background: var(--color-ink);
+  padding: var(--space-3) var(--space-6);
+  border: none;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    0 2px 0 var(--color-ink-medium),
+    0 4px 8px rgba(26,24,20,0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    0 3px 0 var(--color-ink-medium),
+    0 6px 12px rgba(26,24,20,0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(2px);
+  box-shadow: 
+    inset 0 2px 4px rgba(0,0,0,0.2),
+    0 0 0 var(--color-ink-medium);
+}
+
+.btn-secondary {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  background: transparent;
+  padding: var(--space-3) var(--space-6);
+  border: var(--border-thin) solid var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* Toggle switches - mechanical truth values */
+.truth-toggle {
+  display: inline-flex;
+  background: var(--color-paper-dark);
+  border: var(--border-thin) solid var(--color-ink-faded);
+  padding: 2px;
+  gap: 2px;
+  box-shadow: var(--shadow-pressed);
+}
+
+.truth-toggle button {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: var(--space-2) var(--space-4);
+  background: transparent;
+  border: none;
+  color: var(--color-ink-faded);
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.truth-toggle button.active {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  box-shadow: var(--shadow-emboss);
+}
+
+.truth-toggle button[data-value="true"].active {
+  background: var(--color-correct);
+}
+
+.truth-toggle button[data-value="false"].active {
+  background: var(--color-incorrect);
+}
+
+/* ============================================
+   CARDS & CONTAINERS
+   ============================================ */
+
+/* Paper card - layered effect */
+.card-paper {
+  background: var(--color-paper);
+  border: var(--border-hairline) solid var(--color-ink-faded);
+  box-shadow: var(--shadow-lifted);
+  position: relative;
+}
+
+/* Stacked paper effect */
+.card-paper::before {
+  content: "";
+  position: absolute;
+  inset: 4px -3px -4px 3px;
+  background: var(--color-paper-aged);
+  border: var(--border-hairline) solid var(--color-ink-faded);
+  z-index: -1;
+  transform: rotate(-0.5deg);
+}
+
+.card-paper::after {
+  content: "";
+  position: absolute;
+  inset: 8px -5px -8px 5px;
+  background: var(--color-paper-dark);
+  border: var(--border-hairline) solid var(--color-ink-faded);
+  z-index: -2;
+  transform: rotate(0.5deg);
+}
+
+/* Index card style */
+.card-index {
+  background: var(--color-paper);
+  border: var(--border-thin) solid var(--color-ink-light);
+  box-shadow: var(--shadow-lifted);
+  position: relative;
+}
+
+.card-index::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 7px,
+    var(--color-prussian-light) 7px,
+    var(--color-prussian-light) 8px
+  );
+  opacity: 0.3;
+}
+
+/* Embossed panel */
+.panel-embossed {
+  background: var(--color-paper-aged);
+  border: var(--border-thin) solid var(--color-paper-dark);
+  box-shadow: 
+    var(--shadow-pressed),
+    inset 0 0 0 1px rgba(255,255,255,0.5);
+}
+
+/* ============================================
+   SPECIAL COMPONENTS
+   ============================================ */
+
+/* Truth table - like a printed table */
+.truth-table {
+  font-family: var(--font-mono);
+  border-collapse: collapse;
+  width: 100%;
+  background: var(--color-paper);
+  box-shadow: var(--shadow-lifted);
+}
+
+.truth-table th {
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border: var(--border-thin) solid var(--color-ink);
+}
+
+.truth-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+  border: var(--border-hairline) solid var(--color-ink-faded);
+  transition: all 0.15s ease;
+}
+
+.truth-table tr:hover td {
+  background: var(--color-paper-aged);
+}
+
+.truth-table .result-col {
+  background: var(--color-gold-wash);
+  font-weight: 600;
+}
+
+/* Module card - editorial */
+.module-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  background: var(--color-paper);
+  border: var(--border-thin) solid var(--color-ink-light);
+  border-left: var(--border-heavy) solid var(--color-vermillion);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.module-card:hover {
+  border-left-color: var(--color-ink);
+  box-shadow: var(--shadow-floating);
+  transform: translateX(4px);
+}
+
+.module-card .module-number {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--color-ink-faded);
+}
+
+.module-card:hover .module-number {
+  color: var(--color-vermillion);
+}
+
+/* Progress indicator - circular gauge */
+.progress-gauge {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.progress-gauge svg {
+  transform: rotate(-90deg);
+}
+
+.progress-gauge circle {
+  fill: none;
+  stroke-width: 4;
+}
+
+.progress-gauge .track {
+  stroke: var(--color-paper-dark);
+}
+
+.progress-gauge .progress {
+  stroke: var(--color-correct);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.progress-gauge .label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* ============================================
+   FEEDBACK STATES
+   ============================================ */
+
+.feedback-correct {
+  background: var(--color-correct-light);
+  border-left: var(--border-thick) solid var(--color-correct);
+  padding: var(--space-4) var(--space-6);
+}
+
+.feedback-incorrect {
+  background: var(--color-incorrect-light);
+  border-left: var(--border-thick) solid var(--color-incorrect);
+  padding: var(--space-4) var(--space-6);
+}
+
+.feedback-hint {
+  background: var(--color-gold-wash);
+  border-left: var(--border-thick) solid var(--color-gold);
+  padding: var(--space-4) var(--space-6);
+}
+
+/* ============================================
+   CALLOUTS & ASIDES
+   ============================================ */
+
+.callout {
+  position: relative;
+  padding: var(--space-6);
+  margin: var(--space-8) 0;
+  background: var(--color-paper);
+  border: var(--border-thin) solid var(--color-ink-faded);
+}
+
+.callout::before {
+  content: attr(data-label);
+  position: absolute;
+  top: calc(var(--space-3) * -1);
+  left: var(--space-4);
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: var(--color-paper);
+  padding: 0 var(--space-2);
+  color: var(--color-ink-light);
+}
+
+.callout-warning {
+  border-color: var(--color-vermillion);
+  background: var(--color-vermillion-wash);
+}
+
+.callout-warning::before {
+  color: var(--color-vermillion);
+}
+
+.callout-info {
+  border-color: var(--color-prussian);
+  background: var(--color-prussian-wash);
+}
+
+.callout-info::before {
+  color: var(--color-prussian);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes stamp {
+  0% { transform: scale(2) rotate(-5deg); opacity: 0; }
+  50% { transform: scale(1.1) rotate(2deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes underline-draw {
+  from { background-size: 0% 2px; }
+  to { background-size: 100% 2px; }
+}
+
+@keyframes page-turn {
+  0% { transform: perspective(1000px) rotateY(0deg); }
+  100% { transform: perspective(1000px) rotateY(-15deg); }
+}
+
+@keyframes ink-spread {
+  0% { clip-path: circle(0% at var(--x, 50%) var(--y, 50%)); }
+  100% { clip-path: circle(150% at var(--x, 50%) var(--y, 50%)); }
+}
+
+.animate-stamp {
+  animation: stamp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.animate-underline {
+  background: linear-gradient(var(--color-vermillion), var(--color-vermillion)) no-repeat left bottom;
+  background-size: 0% 2px;
+  animation: underline-draw 0.3s ease forwards;
+}
+
+.animate-ink-spread {
+  animation: ink-spread 0.5s ease forwards;
+}
+
+/* Staggered reveal */
+.stagger-reveal > * {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: reveal 0.5s ease forwards;
+}
+
+@keyframes reveal {
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.stagger-reveal > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-reveal > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-reveal > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-reveal > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-reveal > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-reveal > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* ============================================
+   SELECTION & FOCUS
+   ============================================ */
+
+::selection {
+  background: var(--color-vermillion);
+  color: var(--color-paper);
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
+*:focus-visible {
+  outline: var(--border-medium) solid var(--color-vermillion);
+  outline-offset: 2px;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
 }
 
-.animate-slide-in {
-  animation: slideIn 0.3s ease-out forwards;
+::-webkit-scrollbar-track {
+  background: var(--color-paper-dark);
+  border-left: var(--border-hairline) solid var(--color-ink-faded);
 }
 
-.animate-pulse-subtle {
-  animation: pulse 2s ease-in-out infinite;
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-light);
+  border: 3px solid var(--color-paper-dark);
 }
 
-/* Staggered animations for lists */
-.stagger-children > * {
-  opacity: 0;
-  animation: fadeIn 0.4s ease-out forwards;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-medium);
 }
 
-.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
-.stagger-children > *:nth-child(2) { animation-delay: 50ms; }
-.stagger-children > *:nth-child(3) { animation-delay: 100ms; }
-.stagger-children > *:nth-child(4) { animation-delay: 150ms; }
-.stagger-children > *:nth-child(5) { animation-delay: 200ms; }
-.stagger-children > *:nth-child(6) { animation-delay: 250ms; }
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.font-display { font-family: var(--font-display); }
+.font-body { font-family: var(--font-body); }
+.font-mono { font-family: var(--font-mono); }
+
+.text-ink { color: var(--color-ink); }
+.text-ink-medium { color: var(--color-ink-medium); }
+.text-ink-light { color: var(--color-ink-light); }
+.text-ink-faded { color: var(--color-ink-faded); }
+.text-vermillion { color: var(--color-vermillion); }
+.text-prussian { color: var(--color-prussian); }
+
+.bg-paper { background: var(--color-paper); }
+.bg-paper-aged { background: var(--color-paper-aged); }
+.bg-paper-dark { background: var(--color-paper-dark); }
+
+.border-ink { border-color: var(--color-ink); }
+.border-ink-faded { border-color: var(--color-ink-faded); }
 
 /* ============================================
    PRINT STYLES
    ============================================ */
 
 @media print {
-  body::before {
+  body::before,
+  body::after {
     display: none;
   }
   
   .no-print {
     display: none !important;
+  }
+  
+  .card-paper::before,
+  .card-paper::after {
+    display: none;
   }
 }
